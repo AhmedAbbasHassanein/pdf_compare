@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Comparison Tool</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom Styles -->
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .navbar {
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .btn-primary {
+            background-color: #0d6efd;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+        .btn-primary:hover {
+            background-color: #0b5ed7;
+        }
+        .diff-output {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+        .diff-line {
+            font-family: monospace;
+            white-space: pre-wrap;
+            color: #000;
+        }
+        .diff-add {
+            color: green;
+            font-weight: bold;
+        }
+        .diff-remove {
+            color: red;
+            font-weight: bold;
+        }
+        .loading-spinner {
+            display: none;
+            margin-top: 20px;
+        }
+        .identical-files {
+            color: green;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        .footer {
+            background-color: #ffffff;
+            padding: 20px 0;
+            margin-top: 40px;
+            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+<<<<<<< HEAD
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+            <a class="navbar-brand" href="#">PDF Comparison Tool</a>
+            <div class="navbar-nav ms-auto">
+                <span class="nav-item nav-link">Welcome, {{ current_user.email }}</span>
+                <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a>
+=======
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">PDF Comparison Tool</h1>
+        <form method="POST" enctype="multipart/form-data" onsubmit="startNewComparison()">
+            <div class="mb-3">
+                <label for="file1" class="form-label">Upload First PDF:</label>
+                <input type="file" class="form-control" id="file1" name="file1" accept="application/pdf" required>
+>>>>>>> 539354ad90476e62430d71a8119ce09e6a0565a8
+            </div>
+        </div>
+    </nav>
+
+<<<<<<< HEAD
+    <!-- Main Content -->
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="text-center mb-4">Compare PDF Files</h1>
+                        <form method="POST" enctype="multipart/form-data" onsubmit="showLoading()">
+                            <div class="mb-3">
+                                <label for="file1" class="form-label">Upload First PDF:</label>
+                                <input type="file" class="form-control" id="file1" name="file1" accept="application/pdf" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="file2" class="form-label">Upload Second PDF:</label>
+                                <input type="file" class="form-control" id="file2" name="file2" accept="application/pdf" required>
+                            </div>
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary">Compare PDFs</button>
+                            </div>
+                        </form>
+
+                        <!-- Loading Spinner -->
+                        <div class="loading-spinner text-center mt-4">
+                            <div class="spinner-border" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                            <p class="mt-2">Please wait, comparing files...</p>
+                        </div>
+
+                        <!-- Identical Files Message -->
+                        {% if identical %}
+                            <div class="identical-files text-center mt-4">
+                                <p>The two files are identical.</p>
+                            </div>
+=======
+        <!-- Identical Files Message -->
+        <div id="identical-files-message" class="identical-files text-center">
+            {% if identical %}
+                <p>The two files are identical.</p>
+            {% endif %}
+        </div>
+
+        <!-- Differences Output -->
+        <div id="diff-output" class="diff-output mt-5">
+            {% if differences %}
+                <h2>Differences:</h2>
+                <div class="diff-line">
+                    {% for line in differences %}
+                        {% if "- " in line %}
+                            <span class="diff-remove">{{ line }}</span><br>
+                        {% elif "+ " in line %}
+                            <span class="diff-add">{{ line }}</span><br>
+>>>>>>> 539354ad90476e62430d71a8119ce09e6a0565a8
+                        {% endif %}
+
+                        <!-- Differences Output -->
+                        {% if differences %}
+                            <div class="diff-output mt-4">
+                                <h2>Differences:</h2>
+                                <div class="diff-line">
+                                    {% for line in differences %}
+                                        {% if "- " in line %}
+                                            <span class="diff-remove">{{ line }}</span><br>
+                                        {% elif "+ " in line %}
+                                            <span class="diff-add">{{ line }}</span><br>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+<<<<<<< HEAD
+            </div>
+=======
+            {% endif %}
+>>>>>>> 539354ad90476e62430d71a8119ce09e6a0565a8
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container text-center">
+            <p class="mb-0">&copy; 2023 PDF Comparison Tool. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function startNewComparison() {
+            // Clear previous results
+            document.getElementById('identical-files-message').innerHTML = '';
+            document.getElementById('diff-output').innerHTML = '';
+
+            // Show loading spinner
+            document.querySelector('.loading-spinner').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
